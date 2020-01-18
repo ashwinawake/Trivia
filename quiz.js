@@ -9,10 +9,32 @@ const counter = document.getElementById('counter');
 const timeGauge = document.getElementById('timeGauge');
 const progress = document.getElementById('progress');
 const scoreDiv = document.getElementById('score');
-const lastQuestion = question.length-1;
+const lastQuestion = 6;
 const runningQuestion = 0;
 let questions = [];
+let count = 0;
+let questionTime = 10;
+const gaugeWidth = 150;
+const gaugeUnit = gaugeWidth/questionTime;
+let TIMER;
 
+function renderCounter() {
+    if(count<=questionTime){
+        console.log("Counter running")
+        counter.innerHTML = count;
+        timeGauge.style.width = count * gaugeUnit;
+        count++;
+    }else {
+        count = 0;
+    }
+}
+
+function renderProgress() {
+    for (let qIndex = 0; qIndex < lastQuestion; qIndex++){
+        console.log('Running inside loop')
+        progress.innerHTML += "<div class='prog' id="+qIndex+"></div>"
+    }
+}
 
 //get Answers
 function fetchTriviaData() {
@@ -46,3 +68,6 @@ function renderQuestion(){
 start.style.display = "none";
 fetchTriviaData();
 quiz.style.display = "block";
+renderProgress();
+TIMER = setInterval(renderCounter,1000);
+
