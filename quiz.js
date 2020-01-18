@@ -18,6 +18,8 @@ const gaugeWidth = 150;
 const gaugeUnit = gaugeWidth/questionTime;
 let TIMER;
 
+
+
 function renderCounter() {
     if(count<=questionTime){
         console.log("Counter running")
@@ -65,9 +67,14 @@ function renderQuestion(){
     choiceC.innerHTML = q.choiceC;
 }
 
+function startQuiz() {
 start.style.display = "none";
 fetchTriviaData();
 quiz.style.display = "block";
 renderProgress();
 TIMER = setInterval(renderCounter,1000);
+}
 
+//Add Event Listener
+
+start.addEventListener('click', startQuiz);
