@@ -22,7 +22,7 @@ function renderCounter() {
     if(count<=questionTime){
         console.log("Counter running")
         counter.innerHTML = count;
-        timeGauge.style.width = count * gaugeUnit;
+        timeGauge.style.width = count * gaugeUnit + "px";
         count++;
     }else {
         count = 0;
