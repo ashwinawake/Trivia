@@ -6,7 +6,7 @@ body{
 #container{
     margin : 20px auto;
     background-color: white;
-    height: 300px;
+    height: 400px;
     width : 700px;
     border-radius: 5px;
     box-shadow: 0px 5px 15px 0px;
@@ -59,6 +59,7 @@ body{
 
 #choices{
     width : 480px;
+    height: 100px;
     position: absolute;
     right : 0;
     top : 125px;
@@ -67,6 +68,7 @@ body{
 .choice{
     display: inline-block;
     width : 135px;
+    height: 25px;
     text-align: center;
     border : 1px solid grey;
     border-radius: 5px;
