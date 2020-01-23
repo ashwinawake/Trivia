@@ -11,7 +11,8 @@ const timeGauge = document.getElementById('timeGauge');
 const progress = document.getElementById('progress');
 const scoreDiv = document.getElementById('score');
 const lastQuestion = 6;
-const runningQuestion = 0;
+let runningQuestion = 0;
+let score = 0;
 let questions = [];
 let correctAnswer = [];
 let answers = [];
@@ -61,18 +62,18 @@ function createQuestions(tdata) {
     }
     correctAnswer[i] = tdata.results[i].correct_answer;
 }
-renderQuestion();
+renderQuestion(runningQuestion);
 
 }
 
-function renderQuestion(){   
-    let q = questions[runningQuestion];
+function renderQuestion(questionNumber){   
+    let q = questions[questionNumber];
     question.innerHTML = "<p>"+ q.question +"</p>";
-    renderAnswers();
+    renderAnswers(questionNumber);
 }
 
-function renderAnswers() {
-    let a = shuffleAnswers(Object.values(answers[runningQuestion]));
+function renderAnswers(answerNumber) {
+    let a = shuffleAnswers(Object.values(answers[answerNumber]));
     console.log("Shuffled Answers= "+a);
     choiceA.innerHTML = a[0];
     choiceB.innerHTML = a[1];
@@ -90,17 +91,23 @@ TIMER = setInterval(renderCounter,1000);
 
 function checkAnswer(answer){
     //Add event listeners to each answer
-   console.log(answer);
-   if(answer == questions[runningQuestion].correct){
-       console.log("Correct Answer")
+   if(answer == correctAnswer[runningQuestion]){
+       score++;
+       answerIsCorrect();
+       //change progress bar to green.
+   }else {
+       console.log('Answer:' +answer);
+       answerIsWrong();
+   }
+   if(runningQuestion < lastQuestion){
+       runningQuestion++;
+       renderQuestion(runningQuestion);
    }
 }
 //Add Event Listener
 start.addEventListener('click', startQuiz);
 
-//function to randomize answers
-//1. Put in an array
-//2. changed the values of the indexs and repopulatee the array.
+
 function shuffleAnswers(array){
 
     var m = array.length, t, i;
@@ -117,5 +124,30 @@ function shuffleAnswers(array){
     return array;
 }
 
-//The shuffle method shuffle the objects but the content within them.
-//Figure out a way to shuffle object properties.
+function answerIsCorrect(){
+   document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
+}
+
+function answerIsWrong(){
+    document.getElementById(runningQuestion).style.backgroundColor = "#f00";
+}
+// Add Event listener
+choiceA.addEventListener('click', function() {
+    let answer = choiceA.innerText;
+    checkAnswer(answer);
+});
+
+choiceB.addEventListener('click', function() {
+    let answer = choiceB.innerText;
+    checkAnswer(answer);
+});
+
+choiceC.addEventListener('click', function() {
+    let answer = choiceC.innerText;
+    checkAnswer(answer);
+});
+
+choiceD.addEventListener('click', function() {
+    let answer = choiceD.innerText;
+    checkAnswer(answer);
+});
