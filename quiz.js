@@ -30,6 +30,11 @@ function renderCounter() {
         count++;
     }else {
         count = 0;
+        answerIsWrong();
+        if(runningQuestion < lastQuestion){
+            runningQuestion++;
+            renderQuestion(runningQuestion);
+        }
     }
 }
 
@@ -99,6 +104,7 @@ function checkAnswer(answer){
        console.log('Answer:' +answer);
        answerIsWrong();
    }
+   count = 0;
    if(runningQuestion < lastQuestion){
        runningQuestion++;
        renderQuestion(runningQuestion);
