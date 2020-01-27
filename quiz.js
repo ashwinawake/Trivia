@@ -40,11 +40,15 @@ function renderCounter() {
             renderScore();
         }
     }
+    ga('send', {
+        hitType: 'event',
+        eventCategory: 'Question',
+        eventAction: 'Question Number' + runningQuestion
+      });
 }
 
 function renderProgress() {
     for (let qIndex = 0; qIndex < lastQuestion; qIndex++){
-        console.log('Running inside loop')
         progress.innerHTML += "<div class='prog' id="+qIndex+"></div>"
     }
 }
@@ -83,7 +87,6 @@ function renderQuestion(questionNumber){
 
 function renderAnswers(answerNumber) {
     let a = shuffleAnswers(Object.values(answers[answerNumber]));
-    console.log("Shuffled Answers= "+a);
     choiceA.innerHTML = a[0];
     choiceB.innerHTML = a[1];
     choiceC.innerHTML = a[2];
@@ -113,7 +116,6 @@ function checkAnswer(answer){
        runningQuestion++;
        renderQuestion(runningQuestion);
    }else {
-    console.log("Inside checkAnswer finish");
     clearInterval(TIMER);
     renderScore();
 }
@@ -129,7 +131,6 @@ function shuffleAnswers(array){
     while (m) {
       // Pick a remaining element…
       i = Math.floor(Math.random() * m--); 
-      console.log("Shuffling Answers");
       // And swap it with the current element.
       t = array[m];
       array[m] = array[i];
@@ -175,8 +176,6 @@ function renderScore() {
               : (scorePercent >= 40) ? "img/3.png" 
               : (scorePercent >= 20) ? "img/2.png" : "img/1.png";
        
-    console.log(img);
     scoreDiv.innerHTML = "<img src="+img+">";
     scoreDiv.innerHTML += "<p>"+ scorePercent + "%</p>";
-
 }
