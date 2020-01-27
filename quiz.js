@@ -178,5 +178,4 @@ function renderScore() {
        
     scoreDiv.innerHTML = "<img src="+img+">";
     scoreDiv.innerHTML += "<p>"+ scorePercent + "%</p>";
-
 }
