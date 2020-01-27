@@ -9,7 +9,7 @@ const choiceD = document.getElementById('D');
 const counter = document.getElementById('counter');
 const timeGauge = document.getElementById('timeGauge');
 const progress = document.getElementById('progress');
-const scoreDiv = document.getElementById('score');
+const scoreDiv = document.getElementById('scoreContainer');
 const lastQuestion = 6;
 let runningQuestion = 0;
 let score = 0;
@@ -31,9 +31,13 @@ function renderCounter() {
     }else {
         count = 0;
         answerIsWrong();
-        if(runningQuestion < lastQuestion){
+        if(runningQuestion < lastQuestion-1){
             runningQuestion++;
             renderQuestion(runningQuestion);
+        } else {
+            console.log("Inside renderCOunter finish");
+            clearInterval(TIMER);
+            renderScore();
         }
     }
 }
@@ -105,10 +109,14 @@ function checkAnswer(answer){
        answerIsWrong();
    }
    count = 0;
-   if(runningQuestion < lastQuestion){
+   if(runningQuestion < lastQuestion-1){
        runningQuestion++;
        renderQuestion(runningQuestion);
-   }
+   }else {
+    console.log("Inside checkAnswer finish");
+    clearInterval(TIMER);
+    renderScore();
+}
 }
 //Add Event Listener
 start.addEventListener('click', startQuiz);
@@ -157,3 +165,18 @@ choiceD.addEventListener('click', function() {
     let answer = choiceD.innerText;
     checkAnswer(answer);
 });
+
+function renderScore() {
+    scoreDiv.style.display = "block";
+    const scorePercent = Math.round(100 * score/questions.length);
+
+    let img = (scorePercent >= 80) ? "img/5.png" 
+              : (scorePercent >= 60) ? "img/4.png"
+              : (scorePercent >= 40) ? "img/3.png" 
+              : (scorePercent >= 20) ? "img/2.png" : "img/1.png";
+       
+    console.log(img);
+    scoreDiv.innerHTML = "<img src="+img+">";
+    scoreDiv.innerHTML += "<p>"+ scorePercent + "%</p>";
+
+}
