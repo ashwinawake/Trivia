@@ -55,7 +55,7 @@ function renderProgress() {
 
 //get Answers
 function fetchTriviaData() {
-fetch('https://opentdb.com/api.php?amount=6&difficulty=easy&type=multiple')
+fetch('https://opentdb.com/api.php?amount=6&difficulty=easy&type=multiple&encode=base64')
 .then(data => data.json())
 .then(data => createQuestions(data))
 }
@@ -64,16 +64,16 @@ function createQuestions(tdata) {
     for(let i = 0; i<6; i++){
     questions[i] = 
         {
-            question : tdata.results[i].question,
+            question : atob(tdata.results[i].question),
         }   
     answers[i] = 
     {
-        choiceA: tdata.results[i].incorrect_answers[0],
-        choiceB: tdata.results[i].incorrect_answers[1],
-        choiceC: tdata.results[i].incorrect_answers[2],
-        choiceD: tdata.results[i].correct_answer
+        choiceA: atob(tdata.results[i].incorrect_answers[0]),
+        choiceB: atob(tdata.results[i].incorrect_answers[1]),
+        choiceC: atob(tdata.results[i].incorrect_answers[2]),
+        choiceD: atob(tdata.results[i].correct_answer)
     }
-    correctAnswer[i] = tdata.results[i].correct_answer;
+    correctAnswer[i] = atob(tdata.results[i].correct_answer);
 }
 renderQuestion(runningQuestion);
 
