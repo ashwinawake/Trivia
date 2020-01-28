@@ -55,7 +55,7 @@ function renderProgress() {
 
 //get Answers
 function fetchTriviaData() {
-fetch('https://opentdb.com/api.php?amount=6&category=9&difficulty=easy&type=multiple')
+fetch('https://opentdb.com/api.php?amount=6&difficulty=easy&type=multiple')
 .then(data => data.json())
 .then(data => createQuestions(data))
 }
