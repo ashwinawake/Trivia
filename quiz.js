@@ -10,6 +10,7 @@ const counter = document.getElementById('counter');
 const timeGauge = document.getElementById('timeGauge');
 const progress = document.getElementById('progress');
 const scoreDiv = document.getElementById('scoreContainer');
+const retryButton = document.getElementById('tryAgain');
 const lastQuestion = 6;
 let runningQuestion = 0;
 let score = 0;
@@ -24,7 +25,6 @@ let TIMER;
 
 function renderCounter() {
     if(count<=questionTime){
-        console.log("Counter running")
         counter.innerHTML = count;
         timeGauge.style.width = count * gaugeUnit + "px";
         count++;
@@ -108,7 +108,6 @@ function checkAnswer(answer){
        answerIsCorrect();
        //change progress bar to green.
    }else {
-       console.log('Answer:' +answer);
        answerIsWrong();
    }
    count = 0;
@@ -167,6 +166,7 @@ choiceD.addEventListener('click', function() {
     checkAnswer(answer);
 });
 
+
 function renderScore() {
     scoreDiv.style.display = "block";
     const scorePercent = Math.round(100 * score/questions.length);
@@ -178,4 +178,9 @@ function renderScore() {
        
     scoreDiv.innerHTML = "<img src="+img+">";
     scoreDiv.innerHTML += "<p>"+ scorePercent + "%</p>";
+    scoreDiv.innerHTML += "<button id='retryButton' onClick='reLoad()' type='button'>Try Again!</button>"
+}
+
+function reLoad(){
+    location.reload();
 }
